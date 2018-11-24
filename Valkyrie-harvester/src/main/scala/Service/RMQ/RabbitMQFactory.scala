@@ -18,20 +18,11 @@ object RabbitMQFactory extends  LazyLogging {
   val delay: String = config.getString("amqp.reconnect-delay")
   val username: String = config.getString("amqp.username")
   val password: String = config.getString("amqp.password")
-  val baseUri: URI = new URI(config.getString("amqp.url"))
+  val host: String = config.getString("amqp.host")
 
-  val uri: URI = new URI(
-    baseUri.getScheme,
-    s"$username:$password",
-    baseUri.getHost,
-    -1,
-    baseUri.getPath,
-    baseUri.getQuery,
-    baseUri.getFragment
-  )
-  logger.debug(s"AMQP: Connecting to ${uri.toASCIIString}...")
+  logger.debug(s"AMQP: Connecting to ${host}...")
   val factory: ConnectionFactory = new ConnectionFactory()
-  factory.setUri(uri)
+  factory.setHost(host)
   factory.setExceptionHandler(new ForgivingExceptionHandler)
   factory.setAutomaticRecoveryEnabled(true)
   val conn: Connection = factory.newConnection()
