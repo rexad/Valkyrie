@@ -5,4 +5,7 @@ import com.typesafe.scalalogging.LazyLogging
 
 class AJDownloaderService (cfg: Config) extends LazyLogging {
   private val Default_Search_Page = cfg.getString("Pages.Search.AJ")
+
+  val 
+
 }
