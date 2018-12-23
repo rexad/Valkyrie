@@ -14,13 +14,5 @@ class HarvesterApp(
 
 object HarvesterApp extends App with LazyLogging {
 
-  val mainThread = Thread.currentThread()
-  val config = ConfigFactory.load
-  val factory: ConnectionFactory = new ConnectionFactory()
-  private lazy val exchangeName = config.getString("amqp.processor-queue")
-
-  val publisher = RabbitMQFactory.createPublisher(exchangeName, ExchangeType.Fanout)
-  val harvesterApp = new HarvesterApp(config, publisher)
-
-
+  RabbitMQFactory.createPublisher("test")
 }

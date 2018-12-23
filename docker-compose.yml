@@ -1,0 +1,18 @@
+version: '2.1'
+
+# Contains docker containers required to run API or FSM on developer's machine
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+        - 4369:4369
+        - 5671:5671
+        - 5672:5672
+        - 15671:15671
+        - 15672:15672
+        - 25672:25672
+
+  Valkyrie:
+      image: "repo-hkg.agodadev.io:5000/insight/zero:latest<skipPull>"
+      ports:
+         - 9000:9000

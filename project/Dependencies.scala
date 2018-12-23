@@ -94,6 +94,7 @@ object Dependencies {
 
   val harvesterDependencies = Seq(
     "mysql" % "mysql-connector-java" % "5.1.16",
+    "com.rabbitmq" % "amqp-client" % Version.rabbitMq,
     "com.typesafe" % "config" % Version.config,
     "com.typesafe.scala-logging" %% "scala-logging" % Version.scalaLogging,
     "ch.qos.logback" % "logback-classic" % Version.logback,
