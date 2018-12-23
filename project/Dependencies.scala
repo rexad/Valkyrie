@@ -43,6 +43,7 @@ object Dependencies {
     val monixKafka = "0.16"
     val jwt = "3.2.0"
     val commonValidator = "1.6"
+    val xtract = "2.0.0"
   }
 
   val commonsDependencies = Seq(
@@ -58,7 +59,12 @@ object Dependencies {
     "ai.x" %% "play-json-extensions" % Version.playExtensions,
     "com.typesafe.slick" %% "slick" % Version.slick,
     "com.typesafe.slick" %% "slick-hikaricp" % Version.slick,
-    "commons-validator" % "commons-validator" % Version.commonValidator
+    "commons-validator" % "commons-validator" % Version.commonValidator,
+    "com.lucidchart" %% "xtract" % Version.xtract,
+    "io.monix" %% "monix-execution" % Version.monix,
+    "io.monix" %% "monix-reactive" % Version.monix,
+    guice,
+    "io.monix" %% "monix-kafka-11" % Version.monixKafka
   )
   val testDependencies = Seq(
     "org.scalatestplus.play" %% "scalatestplus-play" % Version.scalaTestPlay % "test",
@@ -102,7 +108,9 @@ object Dependencies {
     "io.monix" %% "monix-execution" % Version.monix,
     "io.monix" %% "monix-reactive" % Version.monix,
     guice,
-    "io.monix" %% "monix-kafka-11" % Version.monixKafka
+    "io.monix" %% "monix-kafka-11" % Version.monixKafka,
+    "com.typesafe.akka" %% "akka-stream" % "2.5.18",
+    "com.typesafe.play" %% "play-ahc-ws-standalone" % "LATEST_VERSION"
   )
 
   val experimentDependencies = Seq(

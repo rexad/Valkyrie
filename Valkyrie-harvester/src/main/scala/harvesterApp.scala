@@ -1,18 +1,32 @@
-import Service.RMQ.{ExchangeType, RabbitMQFactory, RabbitMQPublisher}
-import com.rabbitmq.client.ConnectionFactory
-import com.typesafe.config.{Config, ConfigFactory}
+import Model.AJSearchPage
+import Service.Legacy.AJ.AJDownloaderService
+import Service.RMQ.RabbitMQPublisher
+import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
-import monix.execution.Scheduler.Implicits.global
-import slick.jdbc.MySQLProfile.api._
-import concurrent.{ExecutionContext, Future}
+import javax.inject.Inject
+import scala.concurrent.ExecutionContext
+import scala.util.{Success, Failure}
 
-class HarvesterApp(
-                    val config: Config,
-                    val rabbitMQPublisher: RabbitMQPublisher)(implicit ec: ExecutionContext) {
+// In order to evaluate tasks, we'll need a Scheduler
+import monix.execution.Scheduler.Implicits.global
+
+class HarvesterApp (
+                              val config: Config,
+                              val rabbitMQPublisher: RabbitMQPublisher)(implicit ec: ExecutionContext) {
 
 }
 
-object HarvesterApp extends App with LazyLogging {
+object HarvesterApp  extends App with LazyLogging {
 
-  RabbitMQFactory.createPublisher("test")
+
+  val searchPage = AJDownloaderService.downloadSearchPage()
+  searchPage onComplete{
+    case Success(searchPage) => if (searchPage.isDefined)
+                                    {
+                                      logger.info("download of search age was a success, url recorded are"
+                                      + searchPage.get.articleHit.sections.length)
+                                    }
+    else logger.info("download of search age was a failure")
+    case Failure(t) => logger.info("failed with :" + t.getMessage)
+  }
 }
