@@ -10,7 +10,7 @@ object Dependencies {
     val playExtensions = "0.10.0"
     val scalaTestPlay = "3.1.2"
     val playSlick = "3.0.3"
-    val akka = "2.5.11"
+    val akka = "2.5.18"
     val swaggerCheck = "1.0.0"
     val specs2 = "3.8.9"
     val scalaTest = "3.0.5"
@@ -44,6 +44,8 @@ object Dependencies {
     val jwt = "3.2.0"
     val commonValidator = "1.6"
     val xtract = "2.0.0"
+    val refined = "0.9.4"
+    val http4sVersion = "0.18.21"
   }
 
   val commonsDependencies = Seq(
@@ -99,18 +101,22 @@ object Dependencies {
   )
 
   val harvesterDependencies = Seq(
-    "mysql" % "mysql-connector-java" % "5.1.16",
-    "com.rabbitmq" % "amqp-client" % Version.rabbitMq,
-    "com.typesafe" % "config" % Version.config,
+    "com.rabbitmq"               % "amqp-client" % Version.rabbitMq,
+    "com.typesafe"               % "config" % Version.config,
     "com.typesafe.scala-logging" %% "scala-logging" % Version.scalaLogging,
-    "ch.qos.logback" % "logback-classic" % Version.logback,
-    "com.rabbitmq" % "amqp-client" % Version.rabbitMq,
-    "io.monix" %% "monix-execution" % Version.monix,
-    "io.monix" %% "monix-reactive" % Version.monix,
+    "ch.qos.logback"             % "logback-classic" % Version.logback,
+    "com.rabbitmq"               % "amqp-client" % Version.rabbitMq,
+    "io.monix"                   %% "monix-execution" % Version.monix,
+    "io.monix"                   %% "monix-reactive" % Version.monix,
     guice,
-    "io.monix" %% "monix-kafka-11" % Version.monixKafka,
-    "com.typesafe.akka" %% "akka-stream" % "2.5.18",
-    "com.typesafe.play" %% "play-ahc-ws-standalone" % "LATEST_VERSION"
+    "io.monix"                   %% "monix-kafka-11" % Version.monixKafka,
+    "com.typesafe.akka"          %% "akka-stream" %  Version.akka,
+    "com.typesafe.play"          %% "play-ahc-ws-standalone" % "LATEST_VERSION",
+    "eu.timepit"                 %% "refined"                 % Version.refined,
+    "org.http4s" %% "http4s-dsl" % Version.http4sVersion,
+    "org.http4s" %% "http4s-blaze-server" % Version.http4sVersion,
+    "org.http4s" %% "http4s-blaze-client" % Version.http4sVersion
+
   )
 
   val experimentDependencies = Seq(

@@ -4,9 +4,7 @@ import com.typesafe.sbt.packager.docker._
 import sbt.Keys._
 import sbt._
 
-
-import scoverage.ScoverageKeys._
-
+wartremoverErrors ++= Warts.unsafe
 
 lazy val testAll: TaskKey[Unit] = TaskKey[Unit]("test-all")
 
@@ -14,8 +12,6 @@ lazy val commons = SbtLibraryProject("Valkyrie-commons")
   .settings(
     libraryDependencies ++= commonsDependencies ++ testDependencies
   )
-
-
 
 lazy val processor = SbtAppProject("Valkyrie-processor")
   .settings(
@@ -25,19 +21,11 @@ lazy val processor = SbtAppProject("Valkyrie-processor")
     libraryDependencies ++= processorDependencies ++ testDependencies
   )    .dependsOn(commons % "compile->compile;test->test")
 
-
 lazy val harvester = SbtAppProject("Valkyrie-harvester")
   .settings(
     parallelExecution in ThisBuild := false,
-    /* coverageExcludedPackages := ".*hermes\\.fsm\\.model\\..*;" +
-      ".*hermes\\.fsm\\.db\\.BookingDb;" +
-      ".*hermes\\.fsm\\.db\\.Databases", */
     libraryDependencies ++= harvesterDependencies ++ testDependencies
   )    .dependsOn(commons % "compile->compile;test->test")
-
-
-
-
 
 lazy val api = PlayProject("Valkyrie-api")
   .settings(
@@ -67,7 +55,6 @@ lazy val api = PlayProject("Valkyrie-api")
     testAll := (test in IntegrationTest).dependsOn(test in Test).value
   )
   .dependsOn(commons)
-
 
 lazy val root = Project("Valkyrie", file("."))
   .settings(commonSettings: _*)

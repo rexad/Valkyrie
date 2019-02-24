@@ -1,4 +1,4 @@
-package data
+package interpreter
 
 import com.typesafe.config.{Config, ConfigFactory}
 import slick.basic.DatabaseConfig

@@ -10,3 +10,5 @@ addSbtPlugin("se.marcuslonnberg" % "sbt-docker" % "1.5.0")
 
 // Docker Compose
 addSbtPlugin("com.tapad" % "sbt-docker-compose" % "1.0.34")
+// wart remover
+addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.4.1")

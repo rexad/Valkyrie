@@ -1,13 +1,13 @@
 import Model.AJSearchPage
 import Service.Legacy.AJ.AJDownloaderService
+import Service.Legacy.AJ.AJDownloaderService.logger
 import Service.RMQ.RabbitMQPublisher
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.util.{Success, Failure}
+import java.io.PrintWriter
 
-// In order to evaluate tasks, we'll need a Scheduler
+import scala.concurrent.ExecutionContext
 import monix.execution.Scheduler.Implicits.global
 
 class HarvesterApp (
@@ -19,14 +19,11 @@ class HarvesterApp (
 object HarvesterApp  extends App with LazyLogging {
 
 
-  val searchPage = AJDownloaderService.downloadSearchPage()
-  searchPage onComplete{
-    case Success(searchPage) => if (searchPage.isDefined)
-                                    {
-                                      logger.info("download of search age was a success, url recorded are"
-                                      + searchPage.get.articleHit.sections.length)
-                                    }
-    else logger.info("download of search age was a failure")
-    case Failure(t) => logger.info("failed with :" + t.getMessage)
-  }
+  val searchPage = AJDownloaderService().map(_.map(_.map(e =>
+{
+  logger.debug(s"ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    e.articleHit.sections.map(hit =>
+      new PrintWriter(s"/tmp/articles/${hit.title}.html") { write("file contents"); close }
+
+  )})))
 }
